@@ -7,6 +7,7 @@
 - 默认前端地址：`http://localhost:5173`。
 - 默认后端地址：`http://127.0.0.1:8000`。
 - 默认 API 地址：`http://localhost:8000/api/v1`。
+- GitHub 登录和普通 API 使用 `localhost`；AtomGit 本地 OAuth 单独使用 `VITE_ATOMGIT_API_BASE_URL=http://127.0.0.1:8000/api/v1`。
 
 前后端是独立 Git 仓库，提交、分支和工作区状态需要分别检查。
 
@@ -79,6 +80,7 @@ uv run manage.py test --parallel
 - Vitest/jsdom 出现 CommonJS/ESM 加载错误：确认 Node 满足 `package.json.engines`，然后使用 lockfile 重新安装依赖。
 - 前端页面能打开但 API 失败：确认后端已启动，并检查 `VITE_API_BASE_URL`。
 - OAuth 登录失败：本地供应商 key/secret、callback URL 和 `FRONTEND_APP_URL` 必须匹配。
+- OAuth 报 `AuthStateMissing`：检查发起登录和供应商回调是否使用同一个主机名；GitHub 应全程使用 `localhost`，AtomGit 才使用 127 IP 形式。
 - Insight 局部无数据：分别检查 OpenDigger 公共数据源和后端 ClickHouse 配置，不要先假定核心 API 故障。
 
 ## 变更归属
