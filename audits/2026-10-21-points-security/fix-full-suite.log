@@ -1,0 +1,244 @@
+Creating test database for alias 'default'...
+Cloning test database for alias 'default'...
+Cloning test database for alias 'default'...
+Cloning test database for alias 'default'...
+Cloning test database for alias 'default'...
+Found 1103 test(s).
+System check identified no issues (0 silenced).
+.................................................................................................................................................................................................................................................[ERROR] 2026-10-21 17:42:24 accounts.social_auth social_auth.process_exception:113 - Unexpected error during social auth flow for provider github
+ConnectionError: boom
+[ERROR] 2026-10-21 17:42:24 accounts.social_auth social_auth.process_exception:113 - Unexpected error during social auth flow for provider github
+ConnectionError: upstream OAuth provider unreachable
+.............................................[ERROR] 2026-10-21 17:42:24 chdb.services services.search_name_info:427 - 搜索name_info失败 (关键词: demo): boom
+.....................................[ERROR] 2026-10-21 17:42:24 contributions.services services._validate_platform_present:36 - ClickHouse 贡献数据第 0 条缺失 platform 字段,拒绝进入后续流程
+[ERROR] 2026-10-21 17:42:24 contributions.services services._validate_platform_present:36 - ClickHouse 贡献数据第 1 条缺失 platform 字段,拒绝进入后续流程
+.............................................................................................................................................................................................................................................................................................................................[ERROR] 2026-10-21 17:42:59 shenbianyun.services services.batch_payment:383 - 付款结果未知，保留扣款等待对账: mer_batch_id=20261021174244625808
+Traceback (most recent call last):
+  File "/Users/frankzhao/workspace/openshare/backend/shenbianyun/services.py", line 359, in batch_payment
+    response = ShenbianyunClient().request(
+        fun_code=FUN_CODE_BATCH_PAYMENT,
+        req_data=req_data,
+    )
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/mock.py", line 1169, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/mock.py", line 1173, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/mock.py", line 1234, in _execute_mock_call
+    raise effect
+shenbianyun.services.ShenbianyunRequestError: lost response
+[ERROR] 2026-10-21 17:42:59 shenbianyun.services services._reserve_payments:312 - 拒绝未足额扣款的提现付款: withdrawal_id=1
+..........................................................................................................................................................................................................................[ERROR] 2026-10-21 17:43:17 shop.pricing pricing.resolve_user_tier_discount:46 - Unable to resolve developer tier discount for user_id=1
+Traceback (most recent call last):
+  File "/Users/frankzhao/workspace/openshare/backend/shop/pricing.py", line 44, in resolve_user_tier_discount
+    reward = calculate_reward_points(user)
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/mock.py", line 1169, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/mock.py", line 1173, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/mock.py", line 1234, in _execute_mock_call
+    raise effect
+RuntimeError: offline
+...................................................................................................................................................................................sssss.....s..........[ERROR] 2026-10-21 17:43:30 shenbianyun.services services.request:162 - 身边云响应 JSON 解析失败: this is not json
+[ERROR] 2026-10-21 17:43:30 shenbianyun.services services.request:154 - 身边云请求失败: connection refused
+[ERROR] 2026-10-21 17:43:31 shenbianyun.services services._validate_response_fields:263 - 身边云响应校验失败: reqId 不匹配: 期望=8NLdT5Jg0KC5ElAgyA7Y8qe5Vhydsv, 实际=WRONG_REQ_ID_NOT_MATCHING_REQUEST
+[ERROR] 2026-10-21 17:43:31 shenbianyun.services services._process_response:204 - 身边云响应验签失败: reqId=zZ6v6csoK6217cvF7iRFPfgXaSoMNb, funCode=FUN001
+.............................................APPLY: 1 duplicate-email groups, 1 source accounts
+- duplicate@example.com: primary=primary#1
+  blocked: group contains an admin account
+APPLY: 1 duplicate-email groups, 1 source accounts
+- duplicate@example.com: primary=primary#1
+  merge: source#2 -> primary#1
+用户 github-user: 领取 1 条，共 2000 积分
+处理完成：用户数 1，有领取用户 1，领取记录 1，总积分 2000
+用户 github-user-all: 领取 1 条，共 2200 积分
+处理完成：用户数 3，有领取用户 1，领取记录 1，总积分 2200
+
+Slowest test durations
+----------------------------------------------------------------------
+1.994s     test_permission_required (points.tests.test_admin_grant_points.GrantPointsToUsersViewTests.test_permission_required)
+1.666s     test_member_candidate_search_matches_id_username_and_name (accounts.tests.test_api_orgs_v1.ApiV1OrganizationTests.test_member_candidate_search_matches_id_username_and_name)
+1.664s     test_public_profile_read_does_not_create_missing_profile (homepage.tests.test_api_v1.HomepageApiV1Tests.test_public_profile_read_does_not_create_missing_profile)
+1.645s     test_target_quota_ignores_expired (accounts.tests.test_account_merge.AccountMergeFormTests.test_target_quota_ignores_expired)
+1.638s     test_form_blocks_target_pending_quota (accounts.tests.test_account_merge.AccountMergeFormTests.test_form_blocks_target_pending_quota)
+1.634s     test_homepage_search_rejects_blank_or_short_queries (homepage.tests.test_api_v1.HomepageApiV1Tests.test_homepage_search_rejects_blank_or_short_queries)
+1.419s     test_org_admin_grant_points_action (points.tests.test_admin_grant_points.AdminActionTests.test_org_admin_grant_points_action)
+1.402s     test_grant_cash_to_multiple_users (points.tests.test_admin_grant_points.GrantPointsToUsersViewTests.test_grant_cash_to_multiple_users)
+1.378s     test_get_view_displays_form (points.tests.test_admin_grant_points.GrantPointsToUsersViewTests.test_get_view_displays_form)
+1.371s     test_grant_gift_points_with_tag (points.tests.test_admin_grant_points.GrantPointsToUsersViewTests.test_grant_gift_points_with_tag)
+
+----------------------------------------------------------------------
+Ran 1103 tests in 93.153s
+
+OK (skipped=6)
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+Total database setup took 2.620s
+  Creating 'default' took 2.613s
+  Cloning 'default' took 0.002s
+  Cloning 'default' took 0.002s
+  Cloning 'default' took 0.002s
+  Cloning 'default' took 0.002s
+Total database teardown took 0.000s
+Total run took 96.336s
+...................
+----------------------------------------------------------------------
+Ran 19 tests in 0.438s
+
+OK
+Total database setup took 0.000s
+Total database teardown took 0.000s
+Total run took 0.850s
+Found 19 test(s).
+System check identified no issues (0 silenced).
+Creating test database for alias 'default'...
+...
+Slowest test durations
+----------------------------------------------------------------------
+3.789s     test_admin_can_send_targeted_and_broadcast_messages (config.tests.test_backoffice_e2e.BackOfficeE2ETests.test_admin_can_send_targeted_and_broadcast_messages)
+3.525s     test_admin_can_grant_points_to_users_and_orgs (config.tests.test_backoffice_e2e.BackOfficeE2ETests.test_admin_can_grant_points_to_users_and_orgs)
+1.956s     test_admin_grant_points_form_validation_errors_are_visible (config.tests.test_backoffice_e2e.BackOfficeE2ETests.test_admin_grant_points_form_validation_errors_are_visible)
+
+----------------------------------------------------------------------
+Ran 3 tests in 10.302s
+
+OK
+Destroying test database for alias 'default'...
+Total database setup took 2.743s
+  Creating 'default' took 2.743s
+Total database teardown took 0.000s
+Total run took 13.486s
+Found 3 test(s).
+System check identified no issues (0 silenced).
+Combined data file .coverage.Mac.64578.XdfGbkZx
+Combined data file .coverage.Mac.64601.XognizAx
+Combined data file .coverage.Mac.64602.XqCrFHPx
+Combined data file .coverage.Mac.64603.XHbjQmLx
+Combined data file .coverage.Mac.64604.XJEzABjx
+Combined data file .coverage.Mac.65168.XtTBhPfx
+Combined data file .coverage.Mac.65183.XFoHOgWx
+Wrote JSON report to coverage.json
+Name                                                           Stmts   Miss Branch BrPart  Cover
+------------------------------------------------------------------------------------------------
+accounts/admin.py                                                135      0      2      0   100%
+accounts/api_me_v1.py                                            328      2     60      2    99%
+accounts/api_orgs_v1.py                                          225      0     56      0   100%
+accounts/api_serializers.py                                       22      0      2      0   100%
+accounts/api_v1.py                                               218      2     50      1    99%
+accounts/apps.py                                                   7      0      0      0   100%
+accounts/backends.py                                              59      0      2      0   100%
+accounts/email_addresses.py                                        6      0      0      0   100%
+accounts/forms.py                                                 94      0     22      0   100%
+accounts/management/commands/dedupe_user_emails.py                40      0     14      0   100%
+accounts/management/commands/merge_accounts.py                    17      0      2      0   100%
+accounts/management/commands/setadmin.py                          33      0      6      0   100%
+accounts/models.py                                               214      0      2      0   100%
+accounts/pipeline.py                                              67      0     34      2    98%
+accounts/services/account_merge.py                               157      3     48      2    98%
+accounts/services/email_deduplication.py                          70      0     20      0   100%
+accounts/services/jwt_tokens.py                                  118      5     28      1    96%
+accounts/services/masking.py                                      17      0     10      0   100%
+accounts/services/profile_completion_reward.py                   164     33     66      8    77%
+accounts/services/social_exchange.py                              17      0      0      0   100%
+accounts/services/social_exchange_store.py                        93      0     22      0   100%
+accounts/signals.py                                               34      1     10      2    93%
+accounts/social_auth.py                                           55      0     12      0   100%
+accounts/views.py                                                 48      0      4      1    98%
+chdb/apps.py                                                       4      0      0      0   100%
+chdb/clickhousedb.py                                              93      0      6      0   100%
+chdb/services.py                                                 319     62    104      3    81%
+common/constants.py                                                1      0      0      0   100%
+common/frontend_sites.py                                          83      1     34      1    98%
+common/load_testing.py                                           184      0     40      0   100%
+common/middleware.py                                              64      0     12      0   100%
+common/test_utils.py                                             177      0     34      0   100%
+config/admin.py                                                    0      0      0      0   100%
+config/admin_site.py                                              20     10      4      0    42%
+config/api_common.py                                              60      0     14      0   100%
+config/api_v1.py                                                  37      0      0      0   100%
+config/apps.py                                                     3      0      0      0   100%
+config/asgi.py                                                     4      0      0      0   100%
+config/settings.py                                               184      0     20      0   100%
+config/settings_helpers.py                                        19      2     10      2    86%
+config/urls.py                                                    14      0      2      0   100%
+config/wsgi.py                                                     4      0      0      0   100%
+contributions/admin.py                                             0      0      0      0   100%
+contributions/apps.py                                              4      0      0      0   100%
+contributions/models.py                                            0      0      0      0   100%
+contributions/services.py                                         53      1     20      1    97%
+homepage/admin.py                                                  0      0      0      0   100%
+homepage/api_v1.py                                                97      0      6      0   100%
+homepage/apps.py                                                   8      0      0      0   100%
+homepage/cache.py                                                 14      0      2      0   100%
+homepage/signals.py                                               15      0      0      0   100%
+homepage/views.py                                                 29      0      2      0   100%
+messages/admin.py                                                130      0     20      0   100%
+messages/api_v1.py                                               164     29     50      5    75%
+messages/apps.py                                                   6      0      0      0   100%
+messages/models.py                                                61      0      6      0   100%
+messages/services.py                                              77      0     26      0   100%
+points/admin.py                                                  295      0     52      0   100%
+points/allocation_services.py                                    358      5    124      5    98%
+points/api_v1.py                                                 394      0    114      2    99%
+points/apps.py                                                     4      0      0      0   100%
+points/forms.py                                                   69      0     16      0   100%
+points/management/commands/grant_points.py                        85      0     18      0   100%
+points/management/commands/preview_points_usd_conversion.py       33      2      8      1    93%
+points/management/commands/retrigger_pending_point_claims.py     112      0     28      0   100%
+points/management/commands/rollback_pending_claims.py             63      0     16      0   100%
+points/models.py                                                 215      0      4      0   100%
+points/point_conversion.py                                       183      8     60      9    93%
+points/services.py                                               367     17    140      9    95%
+points/tag_operations.py                                         109      0     62      0   100%
+scripts/check_coverage.py                                        116      0     34      0   100%
+scripts/load_test.py                                               5      0      0      0   100%
+shop/admin.py                                                    166     51     30      1    63%
+shop/api_v1.py                                                   209      5     42      5    96%
+shop/apps.py                                                       5      0      0      0   100%
+shop/forms.py                                                     43     16     12      4    56%
+shop/models.py                                                   135      8      4      0    94%
+shop/pricing.py                                                   40      2      2      0    95%
+shop/services.py                                                 124      6     42      1    96%
+shop/widgets.py                                                   23     10      2      0    52%
+------------------------------------------------------------------------------------------------
+TOTAL                                                           7319    281   1694     68    95%
+Coverage summary: line=96.16% (7038/7319), branch=91.38% (1548/1694), expected_files=80, reported_files=80
+Coverage gate passed: line>=95.00% and branch>=85.00% with complete source reporting
+Name                                                          Stmts   Miss Branch BrPart  Cover
+-----------------------------------------------------------------------------------------------
+accounts/api_me_v1.py                                           328      2     60      2    99%
+accounts/api_v1.py                                              218      2     50      1    99%
+accounts/pipeline.py                                             67      0     34      2    98%
+accounts/services/account_merge.py                              157      3     48      2    98%
+accounts/services/jwt_tokens.py                                 118      5     28      1    96%
+accounts/services/profile_completion_reward.py                  164     33     66      8    77%
+accounts/signals.py                                              34      1     10      2    93%
+accounts/views.py                                                48      0      4      1    98%
+chdb/services.py                                                319     62    104      3    81%
+common/frontend_sites.py                                         83      1     34      1    98%
+config/admin_site.py                                             20     10      4      0    42%
+config/settings_helpers.py                                       19      2     10      2    86%
+contributions/services.py                                        53      1     20      1    97%
+messages/api_v1.py                                              164     29     50      5    75%
+points/allocation_services.py                                   358      5    124      5    98%
+points/api_v1.py                                                394      0    114      2    99%
+points/management/commands/preview_points_usd_conversion.py      33      2      8      1    93%
+points/point_conversion.py                                      183      8     60      9    93%
+points/services.py                                              367     17    140      9    95%
+shop/admin.py                                                   166     51     30      1    63%
+shop/api_v1.py                                                  209      5     42      5    96%
+shop/forms.py                                                    43     16     12      4    56%
+shop/models.py                                                  135      8      4      0    94%
+shop/pricing.py                                                  40      2      2      0    95%
+shop/services.py                                                124      6     42      1    96%
+shop/widgets.py                                                  23     10      2      0    52%
+-----------------------------------------------------------------------------------------------
+TOTAL                                                          7319    281   1694     68    95%
+
+54 files skipped due to complete coverage.

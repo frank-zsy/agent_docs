@@ -1,0 +1,283 @@
+Creating test database for alias 'default' ('test_openshare_security')...
+Found 89 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: admindocs, anymail, chdb, django_extensions, django_tasks, messages, staticfiles
+  Apply all migrations: accounts, admin, auth, contenttypes, django_apscheduler, django_tasks_database, points, redirects, sessions, shenbianyun, shop, site_messages, sites, social_django, talent_reach
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying accounts.0001_initial... OK
+  Applying social_django.0001_initial... OK
+  Applying social_django.0002_add_related_name... OK
+  Applying social_django.0003_alter_email_max_length... OK
+  Applying social_django.0004_auto_20160423_0400... OK
+  Applying social_django.0005_auto_20160727_2333... OK
+  Applying social_django.0006_partial... OK
+  Applying social_django.0007_code_timestamp... OK
+  Applying social_django.0008_partial_timestamp... OK
+  Applying social_django.0009_auto_20191118_0520... OK
+  Applying social_django.0010_uid_db_index... OK
+  Applying social_django.0011_alter_id_fields... OK
+  Applying social_django.0012_usersocialauth_extra_data_new... OK
+  Applying social_django.0013_migrate_extra_data... OK
+  Applying social_django.0014_remove_usersocialauth_extra_data... OK
+  Applying social_django.0015_rename_extra_data_new_usersocialauth_extra_data... OK
+  Applying social_django.0016_alter_usersocialauth_extra_data... OK
+  Applying social_django.0017_usersocialauth_user_social_auth_uid_required... OK
+  Applying site_messages.0001_initial... OK
+  Applying site_messages.0002_alter_message_message_type... OK
+  Applying talent_reach.0001_initial... OK
+  Applying talent_reach.0002_bilingual_content_fields... OK
+  Applying talent_reach.0003_outreachcampaign_cities... OK
+  Applying talent_reach.0004_outreachcampaign_source_owner_slug_and_more... OK
+  Applying points.0001_initial... OK
+  Applying points.0002_contributioncache_pendingpointgrant_pointallocation_and_more... OK
+  Applying points.0003_withdrawalrequest_id_card... OK
+  Applying points.0004_withdrawalrequest_invoice_file... OK
+  Applying points.0005_remove_pendingpointgrant_points_pend_github__29416f_idx_and_more... OK
+  Applying accounts.0002_alter_user_is_active... OK
+  Applying accounts.0003_userprofile_education_workexperience... OK
+  Applying accounts.0004_alter_user_options_alter_userprofile_options... OK
+  Applying accounts.0005_alter_user_managers... OK
+  Applying accounts.0006_add_profile_indexes... OK
+  Applying accounts.0007_shippingaddress... OK
+  Applying accounts.0008_organization_organizationmembership_and_more... OK
+  Applying accounts.0009_remove_organization_accounts_or_provide_00b03a_idx_and_more... OK
+  Applying accounts.0010_remove_organization_avatar_url_organization_avatar... OK
+  Applying accounts.0011_account_merge... OK
+  Applying accounts.0012_refreshtoken... OK
+  Applying accounts.0013_user_email_ci_unique_non_empty... OK
+  Applying accounts.0014_rename_accounts_ref_user_id_e1c9e1_idx_accounts_re_user_id_5688ee_idx... OK
+  Applying accounts.0015_add_withdrawal_account_model... OK
+  Applying points.0006_add_withdrawal_account_fk... OK
+  Applying points.0007_add_refund_transaction_type... OK
+  Applying points.0008_convert_existing_points_to_usd_scale... OK
+  Applying points.0009_alter_pointsource_options_withdrawalrefund... OK
+  Applying accounts.0016_drop_user_email_unique... OK
+  Applying accounts.0017_remove_userprofile_location_and_more... OK
+  Applying accounts.0018_userprofile_location_city_name... OK
+  Applying accounts.0019_profile_completion_rewarded... OK
+  Applying accounts.0020_profilerewardidentity... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying django_apscheduler.0001_initial... OK
+  Applying django_apscheduler.0002_auto_20180412_0758... OK
+  Applying django_apscheduler.0003_auto_20200716_1632... OK
+  Applying django_apscheduler.0004_auto_20200717_1043... OK
+  Applying django_apscheduler.0005_migrate_name_to_id... OK
+  Applying django_apscheduler.0006_remove_djangojob_name... OK
+  Applying django_apscheduler.0007_auto_20200717_1404... OK
+  Applying django_apscheduler.0008_remove_djangojobexecution_started... OK
+  Applying django_apscheduler.0009_djangojobexecution_unique_job_executions... OK
+  Applying django_tasks_database.0001_initial... OK
+  Applying django_tasks_database.0002_alter_dbtaskresult_options... OK
+  Applying django_tasks_database.0003_dbtaskresult_enqueued_at_dbtaskresult_finished_at... OK
+  Applying django_tasks_database.0004_dbtaskresult_started_at... OK
+  Applying django_tasks_database.0005_alter_dbtaskresult_priority_and_more... OK
+  Applying django_tasks_database.0006_alter_dbtaskresult_args_kwargs_and_more... OK
+  Applying django_tasks_database.0007_add_separate_results_fields... OK
+  Applying django_tasks_database.0008_separate_results_field... OK
+  Applying django_tasks_database.0009_remove_results_field... OK
+  Applying django_tasks_database.0010_alter_dbtaskresult_status... OK
+  Applying django_tasks_database.0011_rename_complete_status... OK
+  Applying django_tasks_database.0012_add_separate_exception_fields... OK
+  Applying django_tasks_database.0013_separate_exception_fields... OK
+  Applying django_tasks_database.0014_remove_dbtaskresult_exception_data... OK
+  Applying django_tasks_database.0015_correctly_order_run_after... OK
+  Applying django_tasks_database.0016_remove_dbtaskresult_django_task_new_ordering_idx_and_more... OK
+  Applying sites.0001_initial... OK
+  Applying redirects.0001_initial... OK
+  Applying redirects.0002_alter_redirect_new_path_help_text... OK
+  Applying sessions.0001_initial... OK
+  Applying shenbianyun.0001_initial... OK
+  Applying shenbianyun.0002_paymentrecord... OK
+  Applying shenbianyun.0003_alter_paymentrecord_state_and_more... OK
+  Applying shop.0001_initial... OK
+  Applying shop.0002_shopitem_image... OK
+  Applying shop.0003_redemption_shipping_address_and_more... OK
+  Applying shop.0004_redemption_point_transaction_shopitem_allowed_tags... OK
+  Applying shop.0005_shopitem_allowed_tags_through_model... OK
+  Applying shop.0006_remove_redemption_point_transaction... OK
+  Applying shop.0007_remove_shopitem_description_remove_shopitem_image_and_more... OK
+  Applying shop.0008_alter_coupon_type_remove_null... OK
+  Applying shop.0009_redemption_point_tag_slug_redemption_point_type... OK
+  Applying shop.0010_shopitem_priority... OK
+  Applying shop.0011_redemptionpaymentline... OK
+  Applying shop.0012_shopitem_is_listed_on_cn_and_more... OK
+  Applying shop.0013_developer_tier_discounts... OK
+  Applying shop.0014_shopitem_max_redemptions_per_user... OK
+  Applying sites.0002_alter_domain_unique...test_admin_status_cannot_bypass_debit (points.tests.test_security_regressions.PointsSecurityTests.test_admin_status_cannot_bypass_debit) ... ok
+test_allocation_preserves_expiry (points.tests.test_security_regressions.PointsSecurityTests.test_allocation_preserves_expiry) ... ok
+test_ambiguous_payment_is_reconciled_without_refund (points.tests.test_security_regressions.PointsSecurityTests.test_ambiguous_payment_is_reconciled_without_refund) ... [ERROR] 2026-10-21 17:42:49 shenbianyun.services services.batch_payment:383 - 付款结果未知，保留扣款等待对账: mer_batch_id=20261021174255512364
+Traceback (most recent call last):
+  File "/Users/frankzhao/workspace/openshare/backend/shenbianyun/services.py", line 359, in batch_payment
+    response = ShenbianyunClient().request(
+        fun_code=FUN_CODE_BATCH_PAYMENT,
+        req_data=req_data,
+    )
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/mock.py", line 1169, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/mock.py", line 1173, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/mock.py", line 1234, in _execute_mock_call
+    raise effect
+shenbianyun.services.ShenbianyunRequestError: lost response
+ok
+test_binding_change_during_calculation_discards_stale_reward (points.tests.test_security_regressions.PointsSecurityTests.test_binding_change_during_calculation_discards_stale_reward) ... ok
+test_completed_withdrawal_cannot_be_refunded (points.tests.test_security_regressions.PointsSecurityTests.test_completed_withdrawal_cannot_be_refunded) ... ok
+test_expired_points_cannot_redeem (points.tests.test_security_regressions.PointsSecurityTests.test_expired_points_cannot_redeem) ... ok
+test_expiry_applies_to_all_balance_and_spending_views (points.tests.test_security_regressions.PointsSecurityTests.test_expiry_applies_to_all_balance_and_spending_views) ... ok
+test_grant_permission_required_for_users_and_organizations (points.tests.test_security_regressions.PointsSecurityTests.test_grant_permission_required_for_users_and_organizations) ... ok
+test_legacy_refund_is_not_reissued (points.tests.test_security_regressions.PointsSecurityTests.test_legacy_refund_is_not_reissued) ... ok
+test_merge_during_reward_calculation_cannot_reward_deactivated_source (points.tests.test_security_regressions.PointsSecurityTests.test_merge_during_reward_calculation_cannot_reward_deactivated_source) ... ok
+test_merge_preserves_reward_claim_after_spending (points.tests.test_security_regressions.PointsSecurityTests.test_merge_preserves_reward_claim_after_spending) ... ok
+test_missing_or_cross_batch_order_ids_do_not_match (points.tests.test_security_regressions.PointsSecurityTests.test_missing_or_cross_batch_order_ids_do_not_match) ... ok
+test_mixed_expiry_allocation_and_pending_claim_preserve_lots (points.tests.test_security_regressions.PointsSecurityTests.test_mixed_expiry_allocation_and_pending_claim_preserve_lots) ... ok
+test_outreach_preserves_restricted_tag (points.tests.test_security_regressions.PointsSecurityTests.test_outreach_preserves_restricted_tag) ... ok
+test_outreach_reward_preserves_mixed_expiry_and_excludes_expired_share (points.tests.test_security_regressions.PointsSecurityTests.test_outreach_reward_preserves_mixed_expiry_and_excludes_expired_share) ... ok
+test_payment_admin_cannot_edit_or_delete_dispatch_evidence (points.tests.test_security_regressions.PointsSecurityTests.test_payment_admin_cannot_edit_or_delete_dispatch_evidence) ... ok
+test_payment_dispatch_is_unique_and_replay_does_not_resubmit (points.tests.test_security_regressions.PointsSecurityTests.test_payment_dispatch_is_unique_and_replay_does_not_resubmit) ... ok
+test_payment_uses_frozen_withdrawal_account (points.tests.test_security_regressions.PointsSecurityTests.test_payment_uses_frozen_withdrawal_account) ... ok
+test_refund_preserves_each_debit_expiry (points.tests.test_security_regressions.PointsSecurityTests.test_refund_preserves_each_debit_expiry) ... ok
+test_refund_requires_exact_debit_and_rolls_back_on_failure (points.tests.test_security_regressions.PointsSecurityTests.test_refund_requires_exact_debit_and_rolls_back_on_failure) ... [ERROR] 2026-10-21 17:42:50 shenbianyun.services services._reserve_payments:312 - 拒绝未足额扣款的提现付款: withdrawal_id=11
+ok
+test_registered_allocation_splits_lots_without_extending_expiry (points.tests.test_security_regressions.PointsSecurityTests.test_registered_allocation_splits_lots_without_extending_expiry) ... ok
+test_replayed_batch_failure_refunds_once (points.tests.test_security_regressions.PointsSecurityTests.test_replayed_batch_failure_refunds_once) ... ok
+test_reward_api_interleaving_grants_once (points.tests.test_security_regressions.PointsSecurityTests.test_reward_api_interleaving_grants_once) ... ok
+test_reward_failure_rolls_back_identity_and_flag (points.tests.test_security_regressions.PointsSecurityTests.test_reward_failure_rolls_back_identity_and_flag) ... ok
+test_staff_without_grant_permission_cannot_mint_cash (points.tests.test_security_regressions.PointsSecurityTests.test_staff_without_grant_permission_cannot_mint_cash) ... ok
+test_tag_balance_stock_and_price_checks (points.tests.test_security_regressions.PointsSecurityTests.test_tag_balance_stock_and_price_checks) ... ok
+test_terminal_payment_is_not_downgraded_or_refunded (points.tests.test_security_regressions.PointsSecurityTests.test_terminal_payment_is_not_downgraded_or_refunded) ... ok
+test_unauthorized_and_invalid_allocations_fail (points.tests.test_security_regressions.PointsSecurityTests.test_unauthorized_and_invalid_allocations_fail) ... ok
+test_unlink_and_relink_cannot_reset_reward_identity (points.tests.test_security_regressions.PointsSecurityTests.test_unlink_and_relink_cannot_reset_reward_identity) ... ok
+test_refund_migration_marks_history_without_reissuing_points (points.tests.test_security_migrations.HistoricalClaimsMigrationTests.test_refund_migration_marks_history_without_reissuing_points) ... ok
+test_reward_migration_preserves_ledger_and_old_merge_chain (points.tests.test_security_migrations.HistoricalClaimsMigrationTests.test_reward_migration_preserves_ledger_and_old_merge_chain) ... ok
+test_admin_saves_nonnegative_integer_limit (shop.tests.test_redemption_limits.RedemptionLimitTests.test_admin_saves_nonnegative_integer_limit) ... ok
+test_api_reports_personal_count_and_dedicated_conflict (shop.tests.test_redemption_limits.RedemptionLimitTests.test_api_reports_personal_count_and_dedicated_conflict) ... ok
+test_counts_are_batched_and_unlimited_items_remain_available (shop.tests.test_redemption_limits.RedemptionLimitTests.test_counts_are_batched_and_unlimited_items_remain_available) ... ok
+test_failed_redemption_does_not_use_allowance (shop.tests.test_redemption_limits.RedemptionLimitTests.test_failed_redemption_does_not_use_allowance) ... ok
+test_limit_precedes_sold_out_and_coupon_claim (shop.tests.test_redemption_limits.RedemptionLimitTests.test_limit_precedes_sold_out_and_coupon_claim) ... ok
+test_pending_counts_but_cancelled_and_other_items_do_not (shop.tests.test_redemption_limits.RedemptionLimitTests.test_pending_counts_but_cancelled_and_other_items_do_not) ... ok
+test_third_redemption_is_rejected_without_spending_or_stock_change (shop.tests.test_redemption_limits.RedemptionLimitTests.test_third_redemption_is_rejected_without_spending_or_stock_change) ... ok
+test_zero_default_is_unlimited_and_limits_apply_to_existing_records (shop.tests.test_redemption_limits.RedemptionLimitTests.test_zero_default_is_unlimited_and_limits_apply_to_existing_records) ... ok
+test_form_allows_new_after_pending_expired (accounts.tests.test_account_merge.AccountMergeFormTests.test_form_allows_new_after_pending_expired)
+Expired pending requests should not block new submission. ... ok
+test_form_blocks_admin_or_inactive_source (accounts.tests.test_account_merge.AccountMergeFormTests.test_form_blocks_admin_or_inactive_source)
+Source user that is staff or inactive cannot start merge. ... ok
+test_form_blocks_admin_target (accounts.tests.test_account_merge.AccountMergeFormTests.test_form_blocks_admin_target)
+Merging into admin account is rejected with specific text. ... ok
+test_form_blocks_duplicate_pending (accounts.tests.test_account_merge.AccountMergeFormTests.test_form_blocks_duplicate_pending)
+A source cannot create multiple pending requests. ... ok
+test_form_blocks_self_merge (accounts.tests.test_account_merge.AccountMergeFormTests.test_form_blocks_self_merge)
+User cannot merge into self. ... ok
+test_form_blocks_target_pending_quota (accounts.tests.test_account_merge.AccountMergeFormTests.test_form_blocks_target_pending_quota)
+Target cannot receive >3 pending requests. ... ok
+test_form_can_match_using_email_only (accounts.tests.test_account_merge.AccountMergeFormTests.test_form_can_match_using_email_only)
+Providing only email uses email lookup branch. ... ok
+test_form_reports_multiple_matches (accounts.tests.test_account_merge.AccountMergeFormTests.test_form_reports_multiple_matches)
+Duplicate email results in MultipleObjectsReturned error message. ... ok
+test_form_reports_target_not_found (accounts.tests.test_account_merge.AccountMergeFormTests.test_form_reports_target_not_found)
+Shows explicit message when target account is missing. ... ok
+test_form_requires_username_email_match (accounts.tests.test_account_merge.AccountMergeFormTests.test_form_requires_username_email_match)
+Username exists but mismatched email should report not found. ... ok
+test_form_requires_username_or_email (accounts.tests.test_account_merge.AccountMergeFormTests.test_form_requires_username_or_email)
+Submitting without username/email triggers explicit validation. ... ok
+test_target_quota_ignores_expired (accounts.tests.test_account_merge.AccountMergeFormTests.test_target_quota_ignores_expired)
+Expired requests should not count toward target pending limit. ... ok
+test_copy_profile_fields_handles_missing_source (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_copy_profile_fields_handles_missing_source)
+_copy_profile_fields returns 0 when source_profile is None. ... ok
+test_copy_profile_fields_skips_non_blank_target_values (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_copy_profile_fields_skips_non_blank_target_values)
+No profile save is needed when all target fields already have values. ... ok
+test_log_ignores_missing_merge_request (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_log_ignores_missing_merge_request)
+_log should be a no-op for direct merge calls without a request. ... ok
+test_merge_profiles_handles_missing_source_profile (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_merge_profiles_handles_missing_source_profile)
+If source lacks profile, migration still logs zero copied fields. ... ok
+test_merge_users_rejects_self_and_admin_source (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_merge_users_rejects_self_and_admin_source)
+Merge validation should reject self-merges and source admin accounts. ... ok
+test_migrate_organization_memberships_keeps_higher_existing_role (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_migrate_organization_memberships_keeps_higher_existing_role)
+Existing higher target roles should not be downgraded by a lower source role. ... ok
+test_migrate_organization_memberships_moves_when_unique (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_migrate_organization_memberships_moves_when_unique)
+Unique memberships should be migrated to target. ... ok
+test_migrate_organization_memberships_prefers_higher_role (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_migrate_organization_memberships_prefers_higher_role)
+Incoming higher role should replace target membership role. ... ok
+test_migrate_shipping_addresses_moves_unique (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_migrate_shipping_addresses_moves_unique)
+Non-duplicate addresses migrate and increment migrated count. ... ok
+test_migrate_shipping_addresses_skips_duplicates (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_migrate_shipping_addresses_skips_duplicates)
+Duplicate addresses should be skipped and redemptions re-pointed. ... ok
+test_migrate_social_accounts_counts_conflicts (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_migrate_social_accounts_counts_conflicts)
+Duplicate social accounts increment conflict count without migration. ... ok
+test_perform_merge_blocks_admin_target (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_perform_merge_blocks_admin_target)
+Target admins cannot receive merges. ... ok
+test_perform_merge_expires_pending_requests (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_perform_merge_expires_pending_requests)
+Expired pending requests are marked expired with processor set. ... ok
+test_perform_merge_rejects_non_pending_status (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_perform_merge_rejects_non_pending_status)
+Non-pending non-accepted status raises AccountMergeError. ... ok
+test_perform_merge_requires_active_users (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_perform_merge_requires_active_users)
+Inactive source or target should abort the merge. ... ok
+test_perform_merge_returns_immediately_when_accepted (accounts.tests.test_account_merge.AccountMergeServiceEdgeTests.test_perform_merge_returns_immediately_when_accepted)
+Accepted requests are returned without reprocessing. ... ok
+test_concurrent_allocations_cannot_spend_same_lot (points.tests.test_security_concurrency.PointsConcurrencyTests.test_concurrent_allocations_cannot_spend_same_lot) ... ok
+test_concurrent_payment_tasks_submit_once (points.tests.test_security_concurrency.PointsConcurrencyTests.test_concurrent_payment_tasks_submit_once) ... ok
+test_concurrent_redemptions_of_different_items_cannot_overspend (points.tests.test_security_concurrency.PointsConcurrencyTests.test_concurrent_redemptions_of_different_items_cannot_overspend) ... ok
+test_concurrent_refund_issues_once (points.tests.test_security_concurrency.PointsConcurrencyTests.test_concurrent_refund_issues_once) ... ok
+test_concurrent_reward_issues_once (points.tests.test_security_concurrency.PointsConcurrencyTests.test_concurrent_reward_issues_once) ... ok
+test_duplicate_payments_block_upgrade_without_deleting_history (points.tests.test_security_migrations.HistoricalPaymentMigrationTests.test_duplicate_payments_block_upgrade_without_deleting_history) ... ok
+test_stale_worker_cannot_release_successor_lease (shenbianyun.tests.test_scheduler_security.SchedulerLeaseTests.test_stale_worker_cannot_release_successor_lease) ... ok
+test_simultaneous_requests_cannot_exceed_limit_with_unlimited_stock (shop.tests.test_redemption_limits.ConcurrentRedemptionLimitTests.test_simultaneous_requests_cannot_exceed_limit_with_unlimited_stock) ... ok
+test_des_decrypt_invalid_data (shenbianyun.tests.test_crypto.CryptoHelperTests.test_des_decrypt_invalid_data)
+Invalid ciphertext raises from the crypto backend. ... ok
+test_des_encrypt_decrypt_roundtrip (shenbianyun.tests.test_crypto.CryptoHelperTests.test_des_encrypt_decrypt_roundtrip)
+Encrypted data can be decrypted back to the original bytes. ... ok
+test_des_encrypt_produces_different_output (shenbianyun.tests.test_crypto.CryptoHelperTests.test_des_encrypt_produces_different_output)
+Ciphertext differs from plaintext and remains block aligned. ... ok
+test_rsa_sign_verify_roundtrip (shenbianyun.tests.test_crypto.CryptoHelperTests.test_rsa_sign_verify_roundtrip)
+A signature verifies with the matching public key. ... ok
+test_rsa_verify_tampered_data (shenbianyun.tests.test_crypto.CryptoHelperTests.test_rsa_verify_tampered_data)
+A signature does not verify for modified data. ... ok
+test_rsa_verify_wrong_key (shenbianyun.tests.test_crypto.CryptoHelperTests.test_rsa_verify_wrong_key)
+A signature does not verify with an unrelated public key. ... ok
+test_generate_req_id_length (shenbianyun.tests.test_services.ShenbianyunClientTests.test_generate_req_id_length)
+Generated request IDs are 30 alphanumeric characters. ... ok
+test_generate_req_id_uniqueness (shenbianyun.tests.test_services.ShenbianyunClientTests.test_generate_req_id_uniqueness)
+Repeated request IDs are unique in a small sample. ... ok
+test_request_invalid_json_response (shenbianyun.tests.test_services.ShenbianyunClientTests.test_request_invalid_json_response)
+Non-JSON responses are wrapped in ShenbianyunResponseError. ... [ERROR] 2026-10-21 17:43:17 shenbianyun.services services.request:162 - 身边云响应 JSON 解析失败: this is not json
+ok
+test_request_network_error (shenbianyun.tests.test_services.ShenbianyunClientTests.test_request_network_error)
+Network errors are wrapped in ShenbianyunRequestError. ... [ERROR] 2026-10-21 17:43:17 shenbianyun.services services.request:154 - 身边云请求失败: connection refused
+ok
+test_request_req_id_mismatch (shenbianyun.tests.test_services.ShenbianyunClientTests.test_request_req_id_mismatch)
+Mismatched response request IDs are rejected. ... [ERROR] 2026-10-21 17:43:17 shenbianyun.services services._validate_response_fields:263 - 身边云响应校验失败: reqId 不匹配: 期望=2WKkKnEuJTdDHWXyYnQmA7WUy3puZv, 实际=WRONG_REQ_ID_NOT_MATCHING_REQUEST
+ok
+test_request_signature_verification_failure (shenbianyun.tests.test_services.ShenbianyunClientTests.test_request_signature_verification_failure)
+Responses signed by an unrelated key are rejected. ... [ERROR] 2026-10-21 17:43:18 shenbianyun.services services._process_response:204 - 身边云响应验签失败: reqId=yOnGslNCodC8gX5oO0UcSP1D3izKaY, funCode=FUN001
+ok
+test_request_success (shenbianyun.tests.test_services.ShenbianyunClientTests.test_request_success)
+A valid encrypted and signed response is parsed successfully. ... ok
+test_response_without_signature_is_rejected (shenbianyun.tests.test_services.ShenbianyunClientTests.test_response_without_signature_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 89 tests in 28.859s
+
+OK
+Destroying test database for alias 'default' ('test_openshare_security')...
+ OK
+System check identified no issues (0 silenced).
