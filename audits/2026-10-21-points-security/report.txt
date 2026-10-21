@@ -1,0 +1,173 @@
+OpenShare 积分与兑换安全审计，2026-10-21
+
+后续更新：原 9 组问题已在 fix/points-security-invariants 分支实现修复，并完成回归与 PostgreSQL 并发验证。后端提交 aea03d7，修复 PR：https://github.com/opensharehq/backend/pull/62（待评审与合并）。详见同目录 fix-status.txt 和 fix-*.log。以下保留修复前的审计快照与当时的处理状态。
+
+审计基线：backend 64bdf1307c2a19fd651595a72db1cfdf53d9803a。
+审计开始时前后端干净。过程中另一个任务在 feat/per-user-redemption-limit 上开发每用户兑换上限，因此后续复现与全量测试使用 git archive 导出的固定提交副本，不把尚在编辑的代码纳入结论。未修改、提交或推送业务代码，未连接生产数据库或真实付款接口。
+
+处理状态：全部待修复/待确认政策，本轮仅审计留档。用户要求“记录好所有发现的问题，在完成单人兑换上限的开发以后再一并进行修复”。关联任务为“增加商品兑换次数限制”（任务 ID：01a15d1f-924c-74d2-9774-c9fab790a67e）。留档时该任务已报告开发完成、尚未提交，前后端仍有该功能的未提交改动；本审计没有覆盖其最终差异。后续统一修复应以该功能最终代码为基线重新核对，保留现有改动，不得为了切换审计基线而重置工作区。
+
+交付物保存在独立的 agent_docs 仓库 audits/2026-10-21-points-security/ 下，尚未提交。README 已提供索引。下文代码行号均对应上述固定基线，功能开发后行号可能变化，应按函数名定位。
+
+结论：发现 9 组问题/风险，10 个漏洞行为复现均得到预期的不安全结果，另有 2 个防护对照测试通过。普通用户可触发的奖励重复入账、账号合并重置奖励资格，以及后台提现退款和权限问题，可以产生额外可消费积分或重复付款。兑换核心的余额扣减、库存条件更新、券码锁定已有防护，不能把所有并发问题笼统归为兑换接口超卖。
+
+关于“充值”：当前基线没有找到在线支付充值订单或充值支付回调。直接增加本金的入口主要是 Django Admin 发放页面和 grant_points 管理命令；另有资料完善奖励。身边云模块处理提现付款，不能当作充值模块。
+
+1. [P1] 同批付款轮询可对已失败订单重复退款
+
+位置：shenbianyun/services.py:443, 455, 487, 532；points/services.py:865, 882。
+前提：一个批次仍有 INITIATED/PAYING/PENDING_CONFIRM 订单，平台批次查询再次返回该批次中已经失败或取消的订单。这一响应形态使用本地 stub 验证，尚未核验真实平台在生产中的返回范围。
+根因：待处理状态仅用于挑选批次；处理 queryItems 时重新按批次和订单号查询任意 PaymentRecord，未排除已经结算的记录，没有加行锁后校验状态迁移。每次看到失败/取消都会调用 refund_withdrawal。退款函数不检查是否真实扣款、不校验状态、不去重，直接插入 PointSource。
+复现：200 现金积分正常申请并批准提现，余额为 0。同批另一笔保持 PAYING。连续查询同一响应两次，失败用户余额从 0 变为 200，再变为 400；同一 refund:withdrawal:<id> 出现两条入账来源。无需并发。
+影响：后续每轮都可能增加现金积分，可用于兑换或再次提现。并发轮询也是另一条重复退款路径。
+修复：以提现单为单位，在一个数据库事务内锁定并检查待结算状态、确认扣款存在、创建唯一退款事件并更新状态。单纯跳过 record.state == FAILED 仍不足以防并发。应建立针对退款业务的数据库唯一约束。
+复现测试：test_03_polling_one_batch_repeats_failed_refund。
+
+2. [P1] 资料完善奖励存在检查与入账之间的竞争窗口
+
+位置：accounts/services/profile_completion_reward.py:335-355；accounts/api_me_v1.py:266, 304, 385；points/models.py:201。
+前提：普通登录用户资料完整、有正数奖励资格、尚未领奖。
+根因：has_claimed_reward、计算奖励、grant_points、保存 rewarded 标志是分开的步骤。grant_points 自身的事务只保护一次入账，不保护外层“一次性”资格判断。reference_id 只是普通索引，没有唯一约束。
+复现：通过真实 PATCH /api/v1/me/profile 入口安排合法请求交错：请求 A 通过领取检查，在外部等级计算处暂停；请求 B 完成同样流程；A 再继续。两个请求均返回 200，创建两条相同 reference_id 的 PointSource，一次 200 的奖励累计发放 400。没有 mock 掉资格判断或账本写入，只 stub 外部等级计算并控制交错时序。
+影响：普通用户可多领无标签礼物积分，能够用于商城通用兑换。
+修复：在同一事务内以 profile 行锁或条件 UPDATE 原子占用资格，成功占用后入账，并为奖励业务建立唯一领取记录；外部查询尽量在锁外执行，入账前重新校验资格。
+复现测试：test_02_reward_race_controlled_interleaving_through_api。
+
+3. [P1] 账号合并不继承已领奖状态，同一贡献身份可再次领奖
+
+位置：accounts/services/account_merge.py:56-82, 197-209, 244-249；accounts/services/profile_completion_reward.py:119-132。
+前提：控制两个普通账号；源账号已有奖励资格且领取成功，目标账号资料完整但未领取奖励；完成正常账号合并确认。
+根因：合并迁移社交身份，却不合并 profile_completion_rewarded；奖励防重仅使用当前 user.id 和当前钱包中的 reference_id。旧身份移入新用户后，旧领取记录不再命中新用户的防重检查。
+复现：同一个 GitHub UID 在源账号领取 200 并兑换商品，然后通过 perform_merge 合并到目标账号。目标账号 has_claimed_reward 为 False，再领取 200 成功。测试使用真实合并流程，只有外部贡献/基线数据为 stub。
+影响：无须并发，复用同一贡献身份可以重新获取本应一次性的奖励。普通的解绑/换绑也需要按同一业务身份原则审视。
+修复：账号合并时传播奖励领取状态及历史归属；若奖励应按贡献身份只发一次，应以稳定 provider+uid 或明确的身份归并键建立不可重置的领取记录，不能只依赖本地 user.id。
+复现测试：test_09_merge_allows_same_social_identity_reward_again。
+
+4. [P1] 任意 active staff 可越过具体授权直接发放现金积分
+
+位置：points/admin.py:541-544, 562-585, 611-614, 632-655, 690-698。
+前提：账号拥有 is_staff=True，完全不需要超级管理员或积分模型权限。
+根因：自定义发放页面仅判断 is_staff，外层 admin_view 同样只是后台访问权限边界，没有具体发放权限检查。页面 GET 参数中的目标 IDs 可以由调用者选择。
+复现：创建非超级管理员 staff，get_all_permissions() 为空，has_perm('points.add_pointsource') 为 False。直接 POST 自定义用户发放页面，为自己增加 100000 现金积分，返回 302 且入账成功。组织发放页面存在同样检查。
+影响：本来只负责消息、商品等后台工作的 staff 也能任意铸造现金积分。普通非 staff 用户不能直接走此路径。
+修复：引入明确的积分发放权限并在两个自定义视图服务端校验，操作按钮也遵循同一权限。补充无权限 staff 的回归测试。充值/人工入账若有业务单号，应使用适合该业务的幂等键，而不是仅记录文本 reference_id。
+复现测试：test_01_staff_without_grant_permission_can_mint_cash。
+参考：Django admin_view 官方说明只保证 active staff 访问：https://docs.djangoproject.com/en/5.2/ref/contrib/admin/#django.contrib.admin.ModelAdmin.get_urls
+
+5. [P1] 付款响应超时被直接当作失败并退款
+
+位置：shenbianyun/services.py:376-397；轮询选择范围在 443-448。
+前提：平台已受理甚至最终付款成功，但响应丢失、客户端超时、响应解析/验签失败等导致本地异常。
+根因：batch_payment 捕获所有异常后立刻将 PaymentRecord 标为 FAILED、提现单设为 REJECTED，并返还积分。FAILED 不会进入后续正常轮询，因此失去自动核实实际支付结果的机会。
+复现：模拟付款平台先接收订单再丢失响应，代码返还 200 积分并停止追踪该笔订单。此处验证的是本地状态机，不代表在真实平台发起过付款，也没有证明真实订单已到账。
+影响：在第三方实际支付成功时出现“钱已付出，积分也返还”的双重价值损失；用户可继续消费返还积分。
+修复：区分明确拒绝与结果未知。超时等不确定结果进入 UNKNOWN/RECONCILING，按稳定商户单号查询及对账，确认最终失败后才执行幂等退款；重试复用同一业务订单号。
+复现测试：test_04_accepted_payment_with_lost_response_is_refunded。
+
+6. [P1] 后台直接修改提现状态可以跳过扣款
+
+位置：points/admin.py:384-397, 401-409, 489-495；shenbianyun/services.py:299-305。
+前提：拥有 change_withdrawalrequest 的后台 staff。
+根因：status 在普通 Admin 编辑表单中可写，默认保存不会经过 approve_withdrawal。付款任务仅依据 APPROVED 状态挑单，没有验证真实扣款流水。
+复现：用户持有 200 积分并创建待审核提现。后台 POST 编辑表单将状态改为 approved，余额仍是 200，transaction_id 仍为 NULL。随后 batch_payment 会向模拟平台提交付款。
+影响：可对未扣款提现直接付款；即使管理员仅为正常操作，也容易误触这一绕过路径。
+修复：将状态和审核字段设为只读，只通过受控状态迁移服务变更；付款入口验证完整扣款事实，金额应按提现 reference 汇总扣款流水，不只检查一个可空外键。
+复现测试：test_07_admin_status_edit_bypasses_debit。
+
+7. [P2，部署条件相关] 同一提现可被两个付款任务提交两次
+
+位置：shenbianyun/services.py:293-305, 320-365；shenbianyun/models.py:87-90；shenbianyun/scheduler.py:25-47。
+前提：两个付款执行器实际重叠，例如多进程使用 LocMemCache、共享锁失效、任务绕过调度器直接调用。正常有效的共享 Redis 锁会降低该路径的可达性，不能假定生产一定满足重叠条件。
+根因：排除已有付款记录与创建记录之间不是原子操作，没有锁定提现行；PaymentRecord.withdrawal_request 是非唯一 ForeignKey。每个执行器生成不同商户单号，第三方按商户单号去重也无法识别同一提现。
+复现：控制两个任务在“均已选中同一提现、尚未创建付款记录”处交错，实际产生两条 PaymentRecord，向模拟平台提交两个不同订单号。只扣除一次 200 积分，却有两笔付款指令。
+修复：在数据库中原子占用待付款提现，约束一张提现单的一次有效付款业务身份，使用稳定业务幂等号。缓存锁仅用于减少重复工作，不能承担资金正确性的最终约束。锁释放还应校验所有者令牌，避免过期任务释放新锁。
+复现测试：test_08_batch_selection_race_creates_two_payments。
+
+8. [P2] 过期限制未在消费中执行，分配还会清除到期时间
+
+位置：points/models.py:147-167；points/services.py:328-343, 520-523；points/api_v1.py:371-384；points/allocation_services.py:428-441, 465-478, 603-610。
+前提：持有设置了 expires_at 的积分。如果业务从不使用到期时间，当前实际暴露面较小，但后台和管理命令确实暴露此功能。
+根因一：余额与消费来源只筛选 remaining_amount>0，没有筛选 expires_at。
+根因二：分配给已注册用户、新建待领取记录、领取入账均没有完整继承有效期。即使以后修复消费过滤，也仍可在到期前分配以重置到期限制。
+复现一：昨日已过期的 100 礼物积分，兑换 100 分商品成功。
+复现二：明日到期的 100 礼物积分通过真实分配 API 转给另一账号，接收来源 expires_at=None。
+修复：统一有效来源查询，余额、分配、兑换、提现、触达使用同一规则；转移应保留来源批次及有效期。混合有效期池不能简单沿用一个代表来源的到期时间，需要逐来源记录流转，防止延长有效期。
+复现测试：test_05_expired_points_can_redeem、test_10_allocation_discards_expiry。
+
+9. [P2，需明确业务政策] 人才触达可把受限标签积分转为通用礼物积分
+
+位置：talent_reach/services.py:299-302, 370-379, 581-587。
+前提：持有带标签 gift 积分，发起触达并使受控/合作账号进入服务端筛选的接收人列表。测试 stub 了外部贡献筛选，没有让客户端伪造接收人名单。
+根因：触达扣款保留 tag_slug 约束，但阅读奖励只继承 point_type，不传入标签。商城允许通用礼物积分兑换，而带标签积分必须匹配商品 allowed_tags。
+复现：按配置默认值 2 积分/人、50% 阅读奖励，扣除 2 点 restricted-audit 标签积分，接收者得到 1 点无标签积分，并成功兑换一个不接受该标签的商品。
+影响：不增加积分总量，但扩大了积分购买范围。若产品有意允许这种转换，应明确记录为兑换政策并计入成本；否则属于限制绕过。
+修复：阅读奖励保留 campaign.tag_slug 及相关有效期，或者禁止受限积分用于产生通用奖励；需要产品明确是否允许该转换。
+复现测试：test_06_outreach_removes_restricted_tag。
+
+其他审查结果与边界：
+
+- 分配 API 的个人资金来源绑定 request.auth，组织来源要求 owner/admin；负数分配、总量不一致和余额不足有校验。分配入账及来源扣款在同一事务中，扣款不足会回滚。不能仅凭“先发后扣”就断言凭空增发。
+- 分配的 is_registered/user_id/贡献度和最终名单来自客户端，执行时不重新验证贡献范围。它允许已获资金池管理权的人自主定向分配；这不直接突破余额，也不是普通用户盗用别人的池。若业务要求只能发给查询出的真实贡献者，应改为服务端快照或可信身份解析。
+- 待领取积分依据已绑定 provider+uid 匹配，并用条件 UPDATE 与入账事务防止重复领取；没有发现用户名或邮箱回退冒领路径。阅读奖励本身也有原子领取标志，问题在其标签丢失，而不是重复读取就能多领。
+- 兑换价格由后端商品价格和后端等级计算，不采用客户端报价。扣款锁住来源行并核对足额扣款；库存使用 stock>0 的条件更新；兑换码在事务中以 select_for_update(skip_locked=True) 领取；异常会回滚兑换、扣款、库存/券码和站内信。
+- 负数分配返回 422；超余额分配返回 409；普通组织成员使用组织池返回 403；标签不匹配、未授权积分桶、篡改预期价格、零库存兑换均被拒绝，余额不变。这些是新增防护对照的实测结果。
+- 身边云响应缺少签名时仅警告并继续解密，以及使用提现账号实时信息而非审核快照，属于进一步加固点；本次未把它们算作已证明普通用户能凭空增发的漏洞。
+- 没有读取生产账本，不能判断是否已被利用或损失多少。并发问题采用受控交错复现，没有进行生产 PostgreSQL 压力测试。SQLite 的 select_for_update 不提供行锁保障，不能用 SQLite 通过就宣称 PostgreSQL 并发路径全部验证。官方说明：https://docs.djangoproject.com/en/5.2/ref/models/querysets/#select-for-update
+
+测试记录：
+
+1) audit_probes：12/12 通过，其中前 10 个是漏洞行为的证明（断言当前不安全结果），后 2 个是防护对照。这些不是修复后的安全回归测试；修复时需要反转相应不安全断言。
+2) 固定基线运行了仓库规定的 just test，使用独立内存 SQLite、空 Redis 配置及现有虚拟环境。主要测试阶段运行 1055 个测试、6 个失败，recipe 在该阶段退出，后续浏览器 E2E 和最终覆盖率门禁没有完成，因此不能报告全套通过。
+3) 6 个失败都在 shop.tests.test_services.RedeemItemServiceTests，涉及预期原价 100 实际 95 及对应扣款明细。单独重跑该测试类 41/41 通过；小范围测试顺序验证 2/2 通过。全量上下文差异的根因未最终定位，不把这 6 个失败作为额外安全漏洞的证据。
+4) 没有对第三方付款服务发真实请求；支付状态和网络异常都是可控 stub。审计探针没有修改业务代码。
+
+本地文件：
+- audit_probes.py：复现与对照用例。
+- probes.log：12 个用例结果。
+- full-suite.log：just test 原始日志。开头含一次已终止旧任务写入的退出行；最后的 1055 tests / 6 failures 为固定基线运行结果。
+- shop-isolated.log：独立兑换服务测试 41/41 通过。
+- test-order-check.log：局部测试顺序检查 2/2 通过。
+- 固定提交副本在 /private/tmp/openshare-security-audit-20261021/backend-baseline，仅为临时目录，不属于持久审计记录；清理后可用下面命令从 Git 重建。
+
+复现命令（仅对隔离测试数据库；使用已安装依赖的 backend/.venv，不读取工作区 .env）：
+audit_baseline_dir=$(mktemp -d /private/tmp/openshare-security-baseline.XXXXXX)
+git -C /Users/frankzhao/workspace/openshare/backend archive 64bdf1307c2a19fd651595a72db1cfdf53d9803a | tar -x -C "$audit_baseline_dir"
+cd "$audit_baseline_dir"
+DATABASE_URL=sqlite:///:memory: REDIS_URL='' PYTHONPATH=/Users/frankzhao/workspace/openshare/agent_docs/audits/2026-10-21-points-security /Users/frankzhao/workspace/openshare/backend/.venv/bin/python manage.py test audit_probes --noinput --verbosity 2
+
+建议修复顺序：先封住退款重复入账与付款结果未知退款、资料奖励重复领取、无具体授权的后台发放和绕过扣款的状态编辑；随后处理付款幂等、到期元数据传递、标签转换政策。不要给整个 PointSource.reference_id 简单加全局唯一约束：一次 allocation 合法地对应多个接收者，部分消费也会产生多条相关流水。应使用业务事件类型及领取/退款对象的专门唯一键。
+
+统一修复验收清单（均未完成）：
+
+[ ] 1 重复/并发失败通知最多退款一次；没有实际扣款的提现不得获得退款；退款和状态更新一起提交或回滚。
+[ ] 2 同一奖励资格的并发 API 请求最多入账一次；发放失败回滚领取资格；使用 PostgreSQL 真并发验证。
+[ ] 3 已领取身份合并后不能重新领取；验证双向合并、已消费奖励，以及解绑/换绑是否受稳定身份约束。
+[ ] 4 无具体发放权限的 staff 在用户和组织自定义发放入口均被拒绝；有权限的正常操作仍可用。
+[ ] 5 请求结果未知时保持扣款并进入对账；确认终态后再幂等结算或退款；同一业务重试使用稳定订单号。
+[ ] 6 Admin 不能直接编辑状态绕过审核服务；付款任务拒绝缺少足额真实扣款流水的单据。
+[ ] 7 重叠任务不能重复创建有效付款指令；数据库约束防重，缓存锁失效时仍保持正确性。
+[ ] 8 过期积分不计入可用余额、不能消费；直接分配及待领取路径保留来源批次/有效期，覆盖混合有效期来源。
+[ ] 9 明确标签转换政策；若不允许，触达阅读奖励保留限制，跨标签商品无法借此兑换。
+[ ] 次要加固：核对分配对象的服务端可信范围、身边云缺失签名处理、审核后付款账号快照、调度锁所有者校验。
+[ ] 将漏洞探针转成安全回归测试，保留已有防护对照；同时回归单人兑换上限、商品库存、券码和积分扣减。
+[ ] 在最终代码运行 just test，定位本次全量测试中的价格上下文差异；使用真实 PostgreSQL 测试环境验证行锁与并发。不得将 SQLite 探针通过作为并发安全结论。
+
+可交由运维在只读副本核查的线索（本次未执行）：
+
+SELECT wallet_id, reference_id, COUNT(*) AS entries, SUM(original_amount) AS issued
+FROM points_pointsource
+WHERE reference_id LIKE 'refund:withdrawal:%'
+   OR reference_id LIKE 'profile_completion_reward:%'
+GROUP BY wallet_id, reference_id
+HAVING COUNT(*) > 1;
+
+SELECT withdrawal_request_id, COUNT(*) AS payment_attempts
+FROM shenbianyun_paymentrecord
+GROUP BY withdrawal_request_id
+HAVING COUNT(*) > 1;
+
+SELECT id, wallet_id, amount, status
+FROM points_withdrawalrequest
+WHERE status IN ('approved', 'completed') AND transaction_id IS NULL;
+
+这些查询只是异常线索：历史迁移、人工修账、完整扣款流水和第三方实际支付状态需要一起核实，不能仅凭查询结果判定恶意行为或直接扣回用户余额。

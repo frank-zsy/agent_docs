@@ -1,0 +1,223 @@
+error: Recipe `test` failed on line 27 with exit code 143
+ database for alias 'default'...
+Cloning test database for alias 'default'...
+Cloning test database for alias 'default'...
+Cloning test database for alias 'default'...
+Found 1055 test(s).
+System check identified no issues (0 silenced).
+.................................................................................................................................................................................................................................................[ERROR] 2026-10-21 14:28:29 accounts.social_auth social_auth.process_exception:113 - Unexpected error during social auth flow for provider github
+ConnectionError: boom
+[ERROR] 2026-10-21 14:28:29 accounts.social_auth social_auth.process_exception:113 - Unexpected error during social auth flow for provider github
+ConnectionError: upstream OAuth provider unreachable
+.............................................[ERROR] 2026-10-21 14:28:29 chdb.services services.search_name_info:427 - 搜索name_info失败 (关键词: demo): boom
+.....................................[ERROR] 2026-10-21 14:28:29 contributions.services services._validate_platform_present:36 - ClickHouse 贡献数据第 0 条缺失 platform 字段,拒绝进入后续流程
+[ERROR] 2026-10-21 14:28:29 contributions.services services._validate_platform_present:36 - ClickHouse 贡献数据第 1 条缺失 platform 字段,拒绝进入后续流程
+........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................[ERROR] 2026-10-21 14:29:22 shop.pricing pricing.resolve_user_tier_discount:46 - Unable to resolve developer tier discount for user_id=1
+Traceback (most recent call last):
+  File "/private/tmp/openshare-security-audit-20261021/backend-baseline/shop/pricing.py", line 44, in resolve_user_tier_discount
+    reward = calculate_reward_points(user)
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/mock.py", line 1169, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/mock.py", line 1173, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/mock.py", line 1234, in _execute_mock_call
+    raise effect
+RuntimeError: offline
+.................F..........F........F......F...F....F..................................................................................................................................[ERROR] 2026-10-21 14:29:35 shenbianyun.services services.request:162 - 身边云响应 JSON 解析失败: this is not json
+[ERROR] 2026-10-21 14:29:36 shenbianyun.services services.request:154 - 身边云请求失败: connection refused
+[ERROR] 2026-10-21 14:29:36 shenbianyun.services services._validate_response_fields:266 - 身边云响应校验失败: reqId 不匹配: 期望=DBOh2qsFNjSgWi2lSqUNEPTt3bOAeO, 实际=WRONG_REQ_ID_NOT_MATCHING_REQUEST
+[ERROR] 2026-10-21 14:29:36 shenbianyun.services services._process_response:204 - 身边云响应验签失败: reqId=HaUN7Xfm4jazgjyDLCOTFjtdaCMr9e, funCode=FUN001
+............................................用户 github-user: 领取 1 条，共 2000 积分
+处理完成：用户数 1，有领取用户 1，领取记录 1，总积分 2000
+用户 github-user-all: 领取 1 条，共 2200 积分
+处理完成：用户数 3，有领取用户 1，领取记录 1，总积分 2200
+APPLY: 1 duplicate-email groups, 1 source accounts
+- duplicate@example.com: primary=primary#1
+  blocked: group contains an admin account
+APPLY: 1 duplicate-email groups, 1 source accounts
+- duplicate@example.com: primary=primary#1
+  merge: source#2 -> primary#1
+
+======================================================================
+FAIL: test_allowed_tags_selects_sufficient_tag (shop.tests.test_services.RedeemItemServiceTests.test_allowed_tags_selects_sufficient_tag)
+User can specify a tag with enough balance to redeem a tagged item.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 58, in testPartExecutor
+    yield
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 651, in run
+    self._callTestMethod(testMethod)
+
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 606, in _callTestMethod
+    if method() is not None:
+    ^^^^^^^^^^^^^^^
+  File "/private/tmp/openshare-security-audit-20261021/backend-baseline/shop/tests/test_services.py", line 311, in test_allowed_tags_selects_sufficient_tag
+    self.assertTrue(
+    ^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 744, in assertTrue
+    raise self.failureException(msg)
+    ^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_redeem_item_records_cost_at_redemption_time (shop.tests.test_services.RedeemItemServiceTests.test_redeem_item_records_cost_at_redemption_time)
+Test that redemption records the item cost at time of redemption.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 58, in testPartExecutor
+    yield
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 651, in run
+    self._callTestMethod(testMethod)
+
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 606, in _callTestMethod
+    if method() is not None:
+    ^^^^^^^^^^^^^^^
+  File "/private/tmp/openshare-security-audit-20261021/backend-baseline/shop/tests/test_services.py", line 135, in test_redeem_item_records_cost_at_redemption_time
+    self.assertEqual(redemption.points_cost_at_redemption, 100)
+    ^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 907, in assertEqual
+    assertion_func(first, second, msg=msg)
+    ^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 900, in _baseAssertEqual
+    raise self.failureException(msg)
+    ^^^^^^^^^^^
+AssertionError: 95 != 100
+
+======================================================================
+FAIL: test_redeem_item_success (shop.tests.test_services.RedeemItemServiceTests.test_redeem_item_success)
+Test successful item redemption.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 58, in testPartExecutor
+    yield
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 651, in run
+    self._callTestMethod(testMethod)
+
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 606, in _callTestMethod
+    if method() is not None:
+    ^^^^^^^^^^^^^^^
+  File "/private/tmp/openshare-security-audit-20261021/backend-baseline/shop/tests/test_services.py", line 42, in test_redeem_item_success
+    self.assertEqual(redemption.points_cost_at_redemption, 100)
+    ^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 907, in assertEqual
+    assertion_func(first, second, msg=msg)
+    ^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 900, in _baseAssertEqual
+    raise self.failureException(msg)
+    ^^^^^^^^^^^
+AssertionError: 95 != 100
+
+======================================================================
+FAIL: test_redeem_with_empty_tag_slug_equals_no_tag (shop.tests.test_services.RedeemItemServiceTests.test_redeem_with_empty_tag_slug_equals_no_tag)
+Empty-string tag_slug uses universal gift points like tag_slug=None.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 58, in testPartExecutor
+    yield
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 651, in run
+    self._callTestMethod(testMethod)
+
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 606, in _callTestMethod
+    if method() is not None:
+    ^^^^^^^^^^^^^^^
+  File "/private/tmp/openshare-security-audit-20261021/backend-baseline/shop/tests/test_services.py", line 986, in test_redeem_with_empty_tag_slug_equals_no_tag
+    self.assertTrue(
+    ^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 744, in assertTrue
+    raise self.failureException(msg)
+    ^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_redeem_with_tagged_gift_universal_and_cash_topup (shop.tests.test_services.RedeemItemServiceTests.test_redeem_with_tagged_gift_universal_and_cash_topup)
+A user can explicitly combine tagged, untagged gift, and cash points.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 58, in testPartExecutor
+    yield
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 651, in run
+    self._callTestMethod(testMethod)
+
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 606, in _callTestMethod
+    if method() is not None:
+    ^^^^^^^^^^^^^^^
+  File "/private/tmp/openshare-security-audit-20261021/backend-baseline/shop/tests/test_services.py", line 458, in test_redeem_with_tagged_gift_universal_and_cash_topup
+    self.assertEqual(
+    ^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 907, in assertEqual
+    assertion_func(first, second, msg=msg)
+    ^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 1113, in assertListEqual
+    self.assertSequenceEqual(list1, list2, msg, seq_type=list)
+    ^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 1095, in assertSequenceEqual
+    self.fail(msg)
+    ~~~~~~~~~^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 732, in fail
+    raise self.failureException(msg)
+    ^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [('gift', 'mixed-tag', 60), ('gift', None, [19 chars] 10)] != [(PointType.GIFT, 'mixed-tag', 60), (PointT[43 chars] 15)]
+
+First differing element 2:
+('cash', None, 10)
+(PointType.CASH, None, 15)
+
+- [('gift', 'mixed-tag', 60), ('gift', None, 25), ('cash', None, 10)]
++ [(PointType.GIFT, 'mixed-tag', 60),
++  (PointType.GIFT, None, 25),
++  (PointType.CASH, None, 15)]
+
+======================================================================
+FAIL: test_redeem_without_tag_keeps_tagged_balance_intact (shop.tests.test_services.RedeemItemServiceTests.test_redeem_without_tag_keeps_tagged_balance_intact)
+Universal gift points can fully redeem a tagged item.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 58, in testPartExecutor
+    yield
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 651, in run
+    self._callTestMethod(testMethod)
+
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 606, in _callTestMethod
+    if method() is not None:
+    ^^^^^^^^^^^^^^^
+  File "/private/tmp/openshare-security-audit-20261021/backend-baseline/shop/tests/test_services.py", line 915, in test_redeem_without_tag_keeps_tagged_balance_intact
+    self.assertTrue(
+    ^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/case.py", line 744, in assertTrue
+    raise self.failureException(msg)
+    ^^^^^^^^^^^
+AssertionError: False is not true
+
+Slowest test durations
+----------------------------------------------------------------------
+2.014s     test_permission_required (points.tests.test_admin_grant_points.GrantPointsToUsersViewTests.test_permission_required)
+1.673s     test_form_blocks_target_pending_quota (accounts.tests.test_account_merge.AccountMergeFormTests.test_form_blocks_target_pending_quota)
+1.668s     test_member_candidate_search_matches_id_username_and_name (accounts.tests.test_api_orgs_v1.ApiV1OrganizationTests.test_member_candidate_search_matches_id_username_and_name)
+1.662s     test_target_quota_ignores_expired (accounts.tests.test_account_merge.AccountMergeFormTests.test_target_quota_ignores_expired)
+1.657s     test_public_profile_read_does_not_create_missing_profile (homepage.tests.test_api_v1.HomepageApiV1Tests.test_public_profile_read_does_not_create_missing_profile)
+1.405s     test_grant_cash_to_single_user (points.tests.test_admin_grant_points.GrantPointsToUsersViewTests.test_grant_cash_to_single_user)
+1.400s     test_grant_cash_to_multiple_users (points.tests.test_admin_grant_points.GrantPointsToUsersViewTests.test_grant_cash_to_multiple_users)
+1.375s     test_grant_gift_points_with_tag (points.tests.test_admin_grant_points.GrantPointsToUsersViewTests.test_grant_gift_points_with_tag)
+1.373s     test_no_users_selected_redirects (points.tests.test_admin_grant_points.GrantPointsToUsersViewTests.test_no_users_selected_redirects)
+1.366s     test_admin_can_manage_non_owner_members_and_avatar (accounts.tests.test_api_orgs_v1.ApiV1OrganizationTests.test_admin_can_manage_non_owner_members_and_avatar)
+
+----------------------------------------------------------------------
+Ran 1055 tests in 94.088s
+
+FAILED (failures=6)
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+Total database setup took 2.861s
+  Creating 'default' took 2.853s
+  Cloning 'default' took 0.003s
+  Cloning 'default' took 0.001s
+  Cloning 'default' took 0.002s
+  Cloning 'default' took 0.001s
+Total database teardown took 0.000s
+Total run took 97.633s
+error: Recipe `test` failed on line 29 with exit code 1

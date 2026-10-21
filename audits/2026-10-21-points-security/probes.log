@@ -1,0 +1,167 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 12 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: admindocs, anymail, chdb, django_extensions, django_tasks, messages, staticfiles
+  Apply all migrations: accounts, admin, auth, contenttypes, django_apscheduler, django_tasks_database, points, redirects, sessions, shenbianyun, shop, site_messages, sites, social_django, talent_reach
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying accounts.0001_initial... OK
+  Applying site_messages.0001_initial... OK
+  Applying accounts.0002_alter_user_is_active... OK
+  Applying accounts.0003_userprofile_education_workexperience... OK
+  Applying accounts.0004_alter_user_options_alter_userprofile_options... OK
+  Applying accounts.0005_alter_user_managers... OK
+  Applying accounts.0006_add_profile_indexes... OK
+  Applying accounts.0007_shippingaddress... OK
+  Applying accounts.0008_organization_organizationmembership_and_more... OK
+  Applying accounts.0009_remove_organization_accounts_or_provide_00b03a_idx_and_more... OK
+  Applying accounts.0010_remove_organization_avatar_url_organization_avatar... OK
+  Applying accounts.0011_account_merge... OK
+  Applying accounts.0012_refreshtoken... OK
+  Applying accounts.0013_user_email_ci_unique_non_empty... OK
+  Applying accounts.0014_rename_accounts_ref_user_id_e1c9e1_idx_accounts_re_user_id_5688ee_idx... OK
+  Applying accounts.0015_add_withdrawal_account_model... OK
+  Applying accounts.0016_drop_user_email_unique... OK
+  Applying accounts.0017_remove_userprofile_location_and_more... OK
+  Applying accounts.0018_userprofile_location_city_name... OK
+  Applying accounts.0019_profile_completion_rewarded... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying django_apscheduler.0001_initial... OK
+  Applying django_apscheduler.0002_auto_20180412_0758... OK
+  Applying django_apscheduler.0003_auto_20200716_1632... OK
+  Applying django_apscheduler.0004_auto_20200717_1043... OK
+  Applying django_apscheduler.0005_migrate_name_to_id... OK
+  Applying django_apscheduler.0006_remove_djangojob_name... OK
+  Applying django_apscheduler.0007_auto_20200717_1404... OK
+  Applying django_apscheduler.0008_remove_djangojobexecution_started... OK
+  Applying django_apscheduler.0009_djangojobexecution_unique_job_executions... OK
+  Applying django_tasks_database.0001_initial... OK
+  Applying django_tasks_database.0002_alter_dbtaskresult_options... OK
+  Applying django_tasks_database.0003_dbtaskresult_enqueued_at_dbtaskresult_finished_at... OK
+  Applying django_tasks_database.0004_dbtaskresult_started_at... OK
+  Applying django_tasks_database.0005_alter_dbtaskresult_priority_and_more... OK
+  Applying django_tasks_database.0006_alter_dbtaskresult_args_kwargs_and_more... OK
+  Applying django_tasks_database.0007_add_separate_results_fields... OK
+  Applying django_tasks_database.0008_separate_results_field... OK
+  Applying django_tasks_database.0009_remove_results_field... OK
+  Applying django_tasks_database.0010_alter_dbtaskresult_status... OK
+  Applying django_tasks_database.0011_rename_complete_status... OK
+  Applying django_tasks_database.0012_add_separate_exception_fields... OK
+  Applying django_tasks_database.0013_separate_exception_fields... OK
+  Applying django_tasks_database.0014_remove_dbtaskresult_exception_data... OK
+  Applying django_tasks_database.0015_correctly_order_run_after... OK
+  Applying django_tasks_database.0016_remove_dbtaskresult_django_task_new_ordering_idx_and_more... OK
+  Applying site_messages.0002_alter_message_message_type... OK
+  Applying talent_reach.0001_initial... OK
+  Applying talent_reach.0002_bilingual_content_fields... OK
+  Applying talent_reach.0003_outreachcampaign_cities... OK
+  Applying talent_reach.0004_outreachcampaign_source_owner_slug_and_more... OK
+  Applying points.0001_initial... OK
+  Applying points.0002_contributioncache_pendingpointgrant_pointallocation_and_more... OK
+  Applying points.0003_withdrawalrequest_id_card... OK
+  Applying points.0004_withdrawalrequest_invoice_file... OK
+  Applying points.0005_remove_pendingpointgrant_points_pend_github__29416f_idx_and_more... OK
+  Applying points.0006_add_withdrawal_account_fk... OK
+  Applying points.0007_add_refund_transaction_type... OK
+  Applying points.0008_convert_existing_points_to_usd_scale... OK
+  Applying sites.0001_initial... OK
+  Applying redirects.0001_initial... OK
+  Applying redirects.0002_alter_redirect_new_path_help_text... OK
+  Applying sessions.0001_initial... OK
+  Applying shenbianyun.0001_initial... OK
+  Applying shenbianyun.0002_paymentrecord... OK
+  Applying shop.0001_initial... OK
+  Applying shop.0002_shopitem_image... OK
+  Applying shop.0003_redemption_shipping_address_and_more... OK
+  Applying shop.0004_redemption_point_transaction_shopitem_allowed_tags... OK
+  Applying shop.0005_shopitem_allowed_tags_through_model... OK
+  Applying shop.0006_remove_redemption_point_transaction... OK
+  Applying shop.0007_remove_shopitem_description_remove_shopitem_image_and_more... OK
+  Applying shop.0008_alter_coupon_type_remove_null... OK
+  Applying shop.0009_redemption_point_tag_slug_redemption_point_type... OK
+  Applying shop.0010_shopitem_priority... OK
+  Applying shop.0011_redemptionpaymentline... OK
+  Applying shop.0012_shopitem_is_listed_on_cn_and_more... OK
+  Applying shop.0013_developer_tier_discounts... OK
+  Applying sites.0002_alter_domain_unique... OK
+  Applying social_django.0001_initial... OK
+  Applying social_django.0002_add_related_name... OK
+  Applying social_django.0003_alter_email_max_length... OK
+  Applying social_django.0004_auto_20160423_0400... OK
+  Applying social_django.0005_auto_20160727_2333... OK
+  Applying social_django.0006_partial... OK
+  Applying social_django.0007_code_timestamp... OK
+  Applying social_django.0008_partial_timestamp... OK
+  Applying social_django.0009_auto_20191118_0520... OK
+  Applying social_django.0010_uid_db_index... OK
+  Applying social_django.0011_alter_id_fields... OK
+  Applying social_django.0012_usersocialauth_extra_data_new... OK
+  Applying social_django.0013_migrate_extra_data... OK
+  Applying social_django.0014_remove_usersocialauth_extra_data... OK
+  Applying social_django.0015_rename_extra_data_new_usersocialauth_extra_data... OK
+  Applying social_django.0016_alter_usersocialauth_extra_data... OK
+  Applying social_django.0017_usersocialauth_user_social_auth_uid_required...test_01_staff_without_grant_permission_can_mint_cash (audit_probes.SecurityProbes.test_01_staff_without_grant_permission_can_mint_cash) ...  OK
+System check identified no issues (0 silenced).
+PROBE staff_mint: {'permissions': [], 'response': 302, 'balance': 100000}
+ok
+test_02_reward_race_controlled_interleaving_through_api (audit_probes.SecurityProbes.test_02_reward_race_controlled_interleaving_through_api) ... PROBE reward_interleaving: {'responses': [200, 200], 'sources': 2, 'balance': 400}
+ok
+test_03_polling_one_batch_repeats_failed_refund (audit_probes.SecurityProbes.test_03_polling_one_batch_repeats_failed_refund) ... PROBE batch_refund_replay: {'first_balance': 200, 'second_balance': 400}
+ok
+test_04_accepted_payment_with_lost_response_is_refunded (audit_probes.SecurityProbes.test_04_accepted_payment_with_lost_response_is_refunded) ... [ERROR] 2026-10-21 14:29:45 shenbianyun.services services.batch_payment:381 - 批量付款请求失败, mer_batch_id=20261021142942642352
+Traceback (most recent call last):
+  File "/private/tmp/openshare-security-audit-20261021/backend-baseline/shenbianyun/services.py", line 379, in batch_payment
+    res_data = client.request(fun_code=FUN_CODE_BATCH_PAYMENT, req_data=req_data)
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/mock.py", line 1169, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/mock.py", line 1173, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/frankzhao/.local/share/uv/python/cpython-3.13.13-macos-x86_64-none/lib/python3.13/unittest/mock.py", line 1240, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/private/tmp/openshare-security-audit-20261021/audit_probes.py", line 112, in provider_accepted_then_timed_out
+    raise payments.ShenbianyunRequestError('simulated response timeout after provider acceptance')
+shenbianyun.services.ShenbianyunRequestError: simulated response timeout after provider acceptance
+PROBE ambiguous_payment_refund: {'simulated_accepted_orders': 1, 'balance': 200, 'withdrawal_status': 'rejected', 'next_poll_checked': 0}
+ok
+test_05_expired_points_can_redeem (audit_probes.SecurityProbes.test_05_expired_points_can_redeem) ... PROBE expired_redemption: {'status': Redemption.StatusChoices.COMPLETED, 'balance': 0}
+ok
+test_06_outreach_removes_restricted_tag (audit_probes.SecurityProbes.test_06_outreach_removes_restricted_tag) ... PROBE tag_laundering: {'source_tag': 'restricted-audit', 'granted_tag': None, 'reward': 1, 'redemption': 'completed'}
+ok
+test_07_admin_status_edit_bypasses_debit (audit_probes.SecurityProbes.test_07_admin_status_edit_bypasses_debit) ... PROBE admin_status_bypass: {'status': 'approved', 'debit_transaction': None, 'balance': 200, 'submitted_payments': 1}
+ok
+test_08_batch_selection_race_creates_two_payments (audit_probes.SecurityProbes.test_08_batch_selection_race_creates_two_payments) ... PROBE payment_selection_interleaving: {'debited_points': 200, 'payment_records': 2, 'submitted_orders': 2}
+ok
+test_09_merge_allows_same_social_identity_reward_again (audit_probes.SecurityProbes.test_09_merge_allows_same_social_identity_reward_again) ... PROBE merge_reward_reuse: {'same_social_uid': 'audit-identity', 'first_reward': 200, 'first_redeemed': 200, 'second_reward': 200}
+ok
+test_10_allocation_discards_expiry (audit_probes.SecurityProbes.test_10_allocation_discards_expiry) ... PROBE allocation_expiry_removed: {'input_has_expiry': True, 'output_expiry': None, 'amount': 100}
+ok
+test_11_control_unauthorized_and_invalid_allocations_fail (audit_probes.SecurityProbes.test_11_control_unauthorized_and_invalid_allocations_fail) ... PROBE controls_allocation: {'negative': 422, 'over_balance': 409, 'org_member': 403, 'receiver_balance': 0}
+ok
+test_12_control_tag_balance_stock_and_price_checks (audit_probes.SecurityProbes.test_12_control_tag_balance_stock_and_price_checks) ... PROBE controls_redemption: {'mismatched_tag': 'blocked', 'wrong_bucket': 'blocked', 'altered_price': 'blocked', 'zero_stock': 'blocked', 'balance': 100}
+ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.179s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

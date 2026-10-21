@@ -14,6 +14,10 @@ OpenShare 当前由两个独立 Git 仓库组成：
 3. [DEVELOPMENT.md](DEVELOPMENT.md)：本地启动、验证和常见故障。
 4. [API_CONTRACT.md](API_CONTRACT.md)：前后端接口契约及维护方式。
 
+## 审计记录
+
+- [2026-10-21 积分与兑换安全审计](audits/2026-10-21-points-security/report.txt)：9 组问题的修复前证据、复现脚本及日志。单人兑换上限合入后已实现修复；当前验证结果和上线边界见[修复记录](audits/2026-10-21-points-security/fix-status.txt)。
+
 ## 维护原则
 
 - 代码、数据库约束和自动化测试是最终事实来源；文档冲突时先验证代码。
